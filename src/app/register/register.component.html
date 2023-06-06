@@ -1,0 +1,69 @@
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="container">
+            <a class="navbar-brand" href="">
+                <!-- <img src="https://img.favpng.com/9/23/19/movie-logo-png-favpng-nRr1DmYq3SNYSLN8571CHQTEG.jpg"
+                    alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
+
+                <span class="text-warning fs-1 fw-bolder">Cine</span> <span class="flicks fs-1 fw-bolder">Flicks</span>
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+
+<div class="reg container  ">
+    <div class="row">
+        <!-- <div class="col-4"></div> -->
+        <div class="col-xs-12 col-lg-6">
+            <img src="https://i.gifer.com/YUM3.gif" alt="" width="100%" height="100%">
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="container">
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <div class="card">
+                        <a class="singup">Sign Up</a>
+                        <div class="inputBox1">
+                            <input type="text" name="email" formControlName="email" required="required">
+                            <span class="user">Email</span>
+                            <div class="text-danger" *ngIf="this.registerForm.get('email')?.errors && this.registerForm.get('email')?.touched">Invalid Email</div>
+
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="text" name="username" formControlName="username" required="required">
+                            <span>Username</span>
+                            <div class="text-danger" *ngIf="this.registerForm.get('username')?.errors && this.registerForm.get('username')?.touched">Invalid Username</div>
+
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="password" required="required" name="password" formControlName="password">
+                            <span>Password</span>
+                            <div class="text-danger" *ngIf="this.registerForm.get('password')?.errors && this.registerForm.get('password')?.touched">Invalid Password</div>
+                        </div>
+
+                        <div class="text-danger mt-2 mb-2" *ngIf="errorMsg">
+                            {{errorMsg}}
+                        </div>
+
+                        <button class="enter fs-5 " type="submit">Sign Up</button>
+
+                        <div class="link">
+                            <p class="fs-4 mt-3">Already have an account?</p> &nbsp;&nbsp; 
+                        </div>
+                        <div class="mb-5">
+                            <a routerLink="/login" class="btn text-center fw-bold fs-4">Login</a>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="">
+            <span class="text-warning fs-1 fw-bolder">Cine</span> <span
+                class="text-light flicks fs-1 fw-bolder">Flicks</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="../">Home</a>
+                </li>
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="../watchlater">Watchlist</a>
+                </li>
+            </ul>
+            <div>
+                <button mat-button [matMenuTriggerFor]="menu" class="nav-btn bg-dark p-2">
+                    <i class="fa-regular fa-user text-light fs-4 fw-bolder"></i> &nbsp; 
+                    <span class="text-light fs-4 fw-bolder">{{showuser}}</span>
+                   </button>
+               <mat-menu #menu="matMenu">
+                   <button mat-menu-item (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+               </mat-menu>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="empty-div container-fluid d-flex justify-content-center align-items-center " *ngIf="favouriteMovie.length==0">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class=" empty-fav container border border-2 border-dark p-3">
+                    <h1 class="text-center mt-5">Your favourite list is empty</h1>
+                    <h1 class="text-center mt-2">Build a Personalized Collection of Favorites</h1>
+                    <div class="text-center mt-3">
+                        <button class="explore-btn text-center" routerLink="../">
+                            Explore
+                        </button>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="favourite-div container-fluid" *ngIf="favouriteMovie.length!=0">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-3" *ngFor="let movie of favouriteMovie">
+                <div class="card">
+                    <img [src]="movie.poster" class="card-img" alt="" width="100%" height="100%">
+                    <div class="card-body">
+                      <h1 class="text-center text-light fw-bolder">{{movie.title}}</h1>
+                      <div class="d-flex justify-content-center">
+                        <button class="view-btn" routerLink="../view-movie/{{movie.id}}">view more</button>
+                      </div>
+                      <div class="d-flex  justify-content-evenly align-items-center mt-3">
+                        <button (click)="removefavourite(movie.id)"  type="button" class="favourite btn btn-warning  rounded-circle" >
+                            <i class="fa-solid fa-heart-circle-minus fa-bounce"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,36 @@
+<!-- home page header -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container px-5 ">
+        <a class="navbar-brand" href="">
+            <span class="text-warning fs-1 fw-bolder">Cine</span> <span
+                class="text-light flicks fs-1 fw-bolder">Flicks</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <div class="ms-5 m-2 w-50">
+                <input (keyup)="search($event)" type="text" class="form-control" placeholder="Search movie here...">
+            </div>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class=" me-3 mt-2">
+                    <a class="nav_link" routerLink="watchlater">Watchlist</a>
+                </li>
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="favourite">Favourite</a>
+                </li>
+            </ul>
+            <div>
+                <button mat-button [matMenuTriggerFor]="menu" class="nav-btn bg-dark p-2">
+                    <i class="fa-regular fa-user text-light fs-4 fw-bolder"></i> &nbsp; 
+                    <span class="text-light fs-4 fw-bolder">{{showuser}}</span>
+                   </button>
+               <mat-menu #menu="matMenu">
+                   <button (click)="logout()" mat-menu-item ><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+               </mat-menu>
+            </div>
+        </div>
+    </div>
+</nav>

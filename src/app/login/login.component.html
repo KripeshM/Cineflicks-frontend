@@ -1,0 +1,60 @@
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="container">
+            <a class="navbar-brand" href="">
+                <!-- <img src="https://img.favpng.com/9/23/19/movie-logo-png-favpng-nRr1DmYq3SNYSLN8571CHQTEG.jpg"
+                    alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
+
+                <span class="text-warning fs-1 fw-bolder">Cine</span> <span
+                    class="text-light flicks fs-1 fw-bolder">Flicks</span>
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<div class="log container">
+    <div class="row mt-5">
+        <!-- <div class="col-4"></div> -->
+        <div class="col-xs-12 col-lg-6">
+            <img src="https://i.gifer.com/YUM3.gif" alt="" width="100%" height="100%">
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="container">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="card">
+                    <a class="login">Log in</a>
+                    <div class="inputBox">
+                        <input type="text" required="required" name="username" formControlName="username">
+                        <span class="user">Username</span>
+                        <div class="text-danger" *ngIf="this.loginForm.get('username')?.errors && this.loginForm.get('username')?.touched">Invalid Username</div>
+
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="password" required="required" name="password" formControlName="password">
+                        <span>Password</span>
+                        <div class="text-danger" *ngIf="this.loginForm.get('password')?.errors && this.loginForm.get('password')?.touched">Invalid Password</div>
+
+                    </div>
+
+                    <div class="text-danger mt-2 mb-2 fs-3" *ngIf="loginErrMsg">
+                        {{loginErrMsg}}
+                    </div>
+
+                    <button class="enter fs-5" type="submit">Login</button>
+
+                    <div class="d-flex">
+                        <p class="fs-4 mt-2" >Don't have an account?</p>&nbsp;&nbsp; 
+                    </div>
+                    <div class="mb-5">
+                        <a routerLink="/register"  class="btn text-center fw-bold fs-3">Sign Up</a>
+                    </div>
+
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>

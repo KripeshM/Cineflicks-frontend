@@ -1,0 +1,177 @@
+<!-- <app-header></app-header> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="">
+            <span class="text-warning fs-1 fw-bolder">Cine</span> <span
+                class="text-light flicks fs-1 fw-bolder">Flicks</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="../../">Home</a>
+                </li>
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="../../watchlater">Watchlist</a>
+                </li>
+                <li class=" me-5 mt-2">
+                    <a class="nav_link" routerLink="../../favourite">Favourite</a>
+                </li>
+            </ul>
+            <div>
+                <button mat-button [matMenuTriggerFor]="menu" class="nav-btn bg-dark p-2">
+                    <i class="fa-regular fa-user text-light fs-4 fw-bolder"></i> &nbsp;
+                    <span class="text-light fs-4 fw-bolder">{{showuser}}</span>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="logout()"><i
+                            class="fa-solid fa-right-from-bracket"></i>Logout</button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div class="view-div container-fluid">
+    <div class="container">
+        <div class="row">
+            <section class="">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="row gx-4 gx-lg-5 ">
+                        <div class="col-md-6">
+                            <img class="card-img-top mb-5 mb-md-0"
+                                [src]="movie.poster" alt="..." width="500px"
+                                height="600px" />
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <div class="ms-5">
+                                <h1 class="ms-5 fs-1 fw-bold">{{movie.title}}</h1>
+                            </div>
+                            <div>
+                                <h4 class="fs-5 fw-bold">Director: {{movie.director}}</h4>
+                            </div>
+                            <div class="d-flex flex-row ">
+                                <div  *ngFor="let genre of movie.genre">
+                                    <div class="genre mb-3 mt-3 me-3 fs-5 p-2 border border-3 border-warning">{{genre}}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="mb-3 mt-3 me-3 fs-5 p-2 fw-bold">Actors:</div>
+                                <div *ngFor="let actor of movie.actors">
+                                    <div class="actors m-3 fs-5 p-2 bg-warning">{{actor}}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <h3 class="fw-bold">IMDB Rating: {{movie.rating}}</h3>
+                            </div>
+                            <div>
+                                <p class="description">{{movie.plot}}</p>
+                            </div>
+                            <div class="d-flex flex-row justify-content-evenly mt-5"> 
+                                <div class="me-2">
+                                    <a href="" class="button3 fw-bold" [href]="movie.trailer">Watch Trailer</a>
+                                </div>
+                                <div>
+                                    <button class="button2 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Add Review
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-xs-12 ">
+                            <div class="">
+                                <h1 class="fs-2 fw-bold">Reviews</h1>
+                            </div>  
+                            <div class="row">
+                                <div class="review col-xs-12" *ngFor="let review of movie.reviews">
+                                    <div class="reviews mt-4">
+                                        <div class="d-flex justify-content-between ps-3 pe-3">
+                                            <h3 id="username" class="fs-4 mt-2">{{review.username}}</h3>
+                                            <h3 class="fs-5 mt-2">{{review.date}}</h3>
+                                        </div>
+                                        <p id="review-text"  class="ps-4 fs-5">{{review.review}}</p>
+                                        <div class="p-3 m-2" *ngIf="review.username==user">
+                                            <a (click)="getreview()" title="Edit review" class="me-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editModal"> <i class="fa-solid fa-pen-to-square fs-4"></i></a>
+                                             <a (click)="deletereview()" title="Delete review" class="me-2" style="cursor: pointer;"> <i class="fa-solid fa-trash fs-4 text-danger"></i></a>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row" *ngIf="movie.reviews.length==0">
+                                <div class="col-xs-12 text-center">
+                                    <h1 class="text-danger">No reviews yet ! be the first one to share your review</h1>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add your review</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearform()"></button>
+        </div>
+        <form [formGroup]="reviewForm" (ngSubmit)="postreview()">
+
+        <div class="modal-body">
+            <!-- <input type="text" name="review" formControlName="review" id="" class="form-control" placeholder="Enter your review here..."> -->
+            <textarea name="" id="" cols="48" rows="6" placeholder="Enter your review here..." name="review" formControlName="review"></textarea>
+            <div class="text-danger" *ngIf="this.reviewForm.get('review')?.errors&&this.reviewForm.get('review')?.touched">Enter a valid review</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="clearform()">Close</button>
+          <button type="button" class="btn btn-success" type="submit" data-bs-dismiss="modal">Post Review</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit your review</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+        </div>
+        <form [formGroup]="reviewForm" (ngSubmit)="editreview()">
+
+        <div class="modal-body">
+            <textarea [(ngModel)]="postedReview.review" id="" cols="48" rows="6" placeholder="Enter your review here..." name="review" formControlName="review"></textarea>
+            <!-- <input type="text" name="review" formControlName="review" id="" class="form-control" placeholder="Enter your review here..."> -->
+            <div class="text-danger" *ngIf="this.reviewForm.get('review')?.errors&&this.reviewForm.get('review')?.touched">Enter a valid review</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
+          <button type="button" class="btn btn-success" type="submit" data-bs-dismiss="modal">Save changes</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<app-footer></app-footer>
